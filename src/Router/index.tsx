@@ -1,14 +1,19 @@
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 import { AuthGuard } from "./AuthGuard";
+import { Login } from "../view/pages/Login/indes";
+import { AuthLayout } from "../view/layouts/AuthLayout";
 
 export function Router() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<AuthGuard isPrivate={false} />}>
-          <Route path="login" element={<h1>Login</h1>} />
-          <Route path="forgot-password" element={<h1>Forgot-password</h1>} />
+          <Route element={<AuthLayout />}>
+            <Route path="login" element={<Login />} />
+            <Route path="forgot-password" element={<h1>Forgot-password</h1>} />
+          </Route>
+
           <Route path="reset-password" element={<h1>Reset-password</h1>} />
           <Route path="/" element={<h1>Orders</h1>} />
         </Route>
