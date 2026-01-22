@@ -1,6 +1,11 @@
+import { Button } from "../../components/Button";
+import { DevlandLogo } from "../../components/icons/DevlandLogo";
 import { Input } from "../../components/Input";
+import { useLoginController } from "./useLoginController";
 
 export function Login() {
+  const { register, handleSubmit, errors } = useLoginController();
+
   return (
     <div>
       <header className="flex flex-col items-center">
@@ -9,12 +14,38 @@ export function Login() {
         </h1>
       </header>
 
-      <form className="mt-16 space-y-4">
-        <Input name="e-mail" type="email" placeholder="E-mail" />
+      <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
+        <Input
+          type="email"
+          placeholder="E-mail"
+          error={errors.email?.message}
+          {...register("email")}
+        />
 
-        <Input name="password" type="password" placeholder="Senha" />
+        <Input
+          type="password"
+          placeholder="Senha"
+          error={errors.password?.message}
+          {...register("password")}
+        />
 
-        <button type="submit">Entrar</button>
+        <div className="flex flex-col">
+          <Button
+            type="submit"
+            className="mt-2 cursor-pointer"
+            isLoading={false}
+          >
+            Entrar
+          </Button>
+
+          <div className="flex items-center justify-between mt-4">
+            <span className="text-sm text-gray-600 hover:text-gray-900 cursor-pointer">
+              Esqueci senha
+            </span>
+
+            <DevlandLogo />
+          </div>
+        </div>
       </form>
     </div>
   );
