@@ -3,8 +3,12 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthGuard } from "./AuthGuard";
 import { Login } from "../view/pages/Login/indes";
 import { AuthLayout } from "../view/layouts/AuthLayout";
+import { Button } from "../view/components/Button";
+import { useAuth } from "../app/hooks/useAuth";
 
 export function Router() {
+  const { signout } = useAuth();
+
   return (
     <BrowserRouter>
       <Routes>
@@ -19,7 +23,14 @@ export function Router() {
         </Route>
 
         <Route element={<AuthGuard isPrivate />}>
-          <Route path="admin" element={<h1>Admin Home</h1>} />
+          <Route
+            path="admin"
+            element={
+              <h1>
+                <Button onClick={signout}>Sair</Button>
+              </h1>
+            }
+          />
           <Route path="users" element={<h1>Admin Users</h1>} />
           <Route path="settings" element={<h1>Admin Settings</h1>} />
           <Route path="orders" element={<h1>Admin Orders</h1>} />

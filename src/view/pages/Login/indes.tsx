@@ -4,14 +4,18 @@ import { Input } from "../../components/Input";
 import { useLoginController } from "./useLoginController";
 
 export function Login() {
-  const { register, handleSubmit, errors } = useLoginController();
+  const { register, handleSubmit, errors, isLoading } = useLoginController();
 
   return (
     <div>
-      <header className="flex flex-col items-center">
+      <header className="flex flex-col items-center gap-2">
         <h1 className="text-2xl font-bold text-gray-900 tracking-[-1px]">
           Entre em sua conta
         </h1>
+
+        <span className="text-lg font-semibold text-zinc-600 tracking-[-1px]">
+          Gerencie as caçambas de sua cidade em tempo real.
+        </span>
       </header>
 
       <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
@@ -33,7 +37,7 @@ export function Login() {
           <Button
             type="submit"
             className="mt-2 cursor-pointer"
-            isLoading={false}
+            isLoading={isLoading}
           >
             Entrar
           </Button>
