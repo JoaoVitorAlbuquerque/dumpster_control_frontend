@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../../components/Button";
 import { DevlandLogo } from "../../components/icons/DevlandLogo";
 import { Input } from "../../components/Input";
@@ -43,9 +44,12 @@ export function Login() {
           </Button>
 
           <div className="flex items-center justify-between mt-4">
-            <span className="text-sm text-gray-600 hover:text-gray-900 cursor-pointer">
+            <Link
+              to="/forgot-password"
+              className="text-sm text-gray-600 hover:text-gray-900 cursor-pointer"
+            >
               Esqueci senha
-            </span>
+            </Link>
 
             <DevlandLogo />
           </div>

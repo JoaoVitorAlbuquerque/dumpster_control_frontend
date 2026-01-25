@@ -4,7 +4,7 @@ import logo from "../../assets/logo-moreira_sales.png";
 
 export function AuthLayout() {
   return (
-    <div className="flex h-screen bg-zinc-300 justify-center items-center">
+    <div className="flex h-screen bg-[#f8fafc] justify-center items-center">
       <div className="flex flex-col items-center bg-white p-8 rounded-lg shadow-2xl w-full max-w-xl space-y-6 mx-4 lg:mx-0">
         <img
           src={logo}
