@@ -27,9 +27,14 @@ export function WrappedScreen() {
         </div>
       </header>
 
-      <div className="flex-1">
+      <div className="flex-1 mt-4">
         <Outlet />
       </div>
+
+      <footer className="w-full bg-white px-4 shadow-2xl mt-2">
+        Developed by <span className="text-gray-800 font-bold">CodeLand</span> -
+        Todos os direitos reservados®
+      </footer>
     </div>
   );
 }

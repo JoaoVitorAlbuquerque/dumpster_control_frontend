@@ -37,7 +37,7 @@ export function DevlandLogo() {
         fontFamily="Arial, Helvetica, sans-serif"
         fontWeight="bold"
       >
-        Dev<tspan fill="url(#grad)">Land</tspan>
+        Code<tspan fill="url(#grad)">Land</tspan>
       </text>
 
       <text
