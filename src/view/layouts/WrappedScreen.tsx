@@ -3,8 +3,11 @@ import logo from "../../assets/logo-moreira_sales.png";
 import { SquarePlusIcon } from "../components/icons/SquarePlusIcon";
 import { NavigateLink } from "../components/NavigateLink";
 import { UserIcon } from "../components/icons/UserIcon";
+import { useAuth } from "../../app/hooks/useAuth";
 
 export function WrappedScreen() {
+  const { signedIn, user } = useAuth();
+
   return (
     <div className="flex flex-col h-screen bg-[#f8fafc]">
       <header className="flex items-center justify-between bg-white max-h-[12%] shadow-md py-3 px-14">
@@ -20,11 +23,15 @@ export function WrappedScreen() {
           </NavigateLink>
         </div>
 
-        <div>
-          <NavigateLink icon={<UserIcon />} linkTo="/login">
-            Log-in
-          </NavigateLink>
-        </div>
+        {!signedIn ? (
+          <div>
+            <NavigateLink icon={<UserIcon />} linkTo="/login">
+              Log-in
+            </NavigateLink>
+          </div>
+        ) : (
+          <div className="text-gray-700 font-medium">Olá, {user?.name}</div>
+        )}
       </header>
 
       <div className="flex-1 mt-4">

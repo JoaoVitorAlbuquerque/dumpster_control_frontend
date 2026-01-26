@@ -8,6 +8,7 @@ import { useAuth } from "../app/hooks/useAuth";
 import { WrappedScreen } from "../view/layouts/WrappedScreen";
 import { Request } from "../view/pages/Request";
 import { ForgotPassword } from "../view/pages/ForgotPassword/indes";
+import { ResetPassword } from "../view/pages/ResetPassword/indes";
 
 export function Router() {
   const { signout } = useAuth();
@@ -22,7 +23,7 @@ export function Router() {
           </Route>
 
           <Route element={<WrappedScreen />}>
-            <Route path="reset-password" element={<h1>Reset-password</h1>} />
+            <Route path="reset-password" element={<ResetPassword />} />
             <Route path="/" element={<Request />} />
             <Route path="*" element={<h1>Not Found</h1>} />
           </Route>
