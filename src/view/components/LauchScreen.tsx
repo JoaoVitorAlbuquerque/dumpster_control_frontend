@@ -22,7 +22,7 @@ export function LauchScreen({ isLoading }: LauchScreenProps) {
           <div className="flex items-center space-x-2">
             <img src={logo} alt="logo" className="w-9 h-9" />
 
-            <span className="text-4xl text-teal-600">MADETERRA</span>
+            <span className="text-4xl text-teal-600">DUMPSTER CONTROL</span>
           </div>
 
           <Spinner className="text-white fill-teal-700" />

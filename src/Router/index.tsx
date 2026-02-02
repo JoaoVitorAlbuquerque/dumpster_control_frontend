@@ -9,6 +9,7 @@ import { WrappedScreen } from "../view/layouts/WrappedScreen";
 import { Request } from "../view/pages/Request";
 import { ForgotPassword } from "../view/pages/ForgotPassword/indes";
 import { ResetPassword } from "../view/pages/ResetPassword/indes";
+import { OrderPage } from "../view/pages/Order";
 
 export function Router() {
   const { signout } = useAuth();
@@ -42,7 +43,7 @@ export function Router() {
             <Route path="users" element={<h1>Admin Users</h1>} />
             <Route path="settings" element={<h1>Admin Settings</h1>} />
             <Route path="orders" element={<h1>Admin Orders</h1>} />
-            <Route path="reports" element={<h1>Admin Reports</h1>} />
+            <Route path="reports" element={<OrderPage />} />
             <Route path="map" element={<h1>Admin Map</h1>} />
           </Route>
         </Route>

@@ -4,6 +4,10 @@ import { SquarePlusIcon } from "../components/icons/SquarePlusIcon";
 import { NavigateLink } from "../components/NavigateLink";
 import { UserIcon } from "../components/icons/UserIcon";
 import { useAuth } from "../../app/hooks/useAuth";
+import { SearchIcon } from "../components/icons/SearchIcon";
+import { MapPinned } from "../components/icons/MapPinned";
+import { SheetIcon } from "../components/icons/SheetIcon";
+import { HomeIcon } from "../components/icons/HomeIcon";
 
 export function WrappedScreen() {
   const { signedIn, user } = useAuth();
@@ -17,10 +21,36 @@ export function WrappedScreen() {
           className="object-contain h-full select-none rounded-4xl"
         />
 
-        <div>
-          <NavigateLink icon={<SquarePlusIcon />} linkTo="/">
-            Solicitar Caçamba
-          </NavigateLink>
+        <div className="flex gap-4">
+          {signedIn ? (
+            <>
+              <NavigateLink icon={<HomeIcon />} linkTo="/">
+                Home
+              </NavigateLink>
+
+              <NavigateLink icon={<SquarePlusIcon />} linkTo="/orders">
+                Solicitar Caçamba
+              </NavigateLink>
+
+              <NavigateLink icon={<SheetIcon />} linkTo="/reports">
+                Pedidos
+              </NavigateLink>
+
+              <NavigateLink icon={<MapPinned />} linkTo="/map">
+                Mapa
+              </NavigateLink>
+            </>
+          ) : (
+            <>
+              <NavigateLink icon={<SquarePlusIcon />} linkTo="/">
+                Solicitar Caçamba
+              </NavigateLink>
+
+              <NavigateLink icon={<SearchIcon />} linkTo="/">
+                Consultar Protocolo
+              </NavigateLink>
+            </>
+          )}
         </div>
 
         {!signedIn ? (
