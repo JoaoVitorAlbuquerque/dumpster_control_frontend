@@ -14,6 +14,8 @@ export function useOrderPageController() {
   const [orderBeingEdited, setOrderBeingEdited] = useState<null | Request>(
     null,
   );
+  const [isDeleteOrderModalOpen, setIsDeleteOrderModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Request | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialFilters = getFiltersFromSearchParams(searchParams);
   const [filters, setFilters] = useState<RequestFilters>(initialFilters);
@@ -36,6 +38,16 @@ export function useOrderPageController() {
   const handleCloseEditOrderModal = useCallback(() => {
     setOrderBeingEdited(null);
     setIsEditOrderModalOpen(false);
+  }, []);
+
+  const handleOpenDeleteOrderModal = useCallback((order: Request) => {
+    setSelectedOrder(order);
+    setIsDeleteOrderModalOpen(true);
+  }, []);
+
+  const handleCloseDeleteOrderModal = useCallback(() => {
+    setSelectedOrder(null);
+    setIsDeleteOrderModalOpen(false);
   }, []);
 
   const { request, isLoading, totalCount } = useRequests(
@@ -131,5 +143,9 @@ export function useOrderPageController() {
     orderBeingEdited,
     handleOpenEditOrderModal,
     handleCloseEditOrderModal,
+    isDeleteOrderModalOpen,
+    selectedOrder,
+    handleOpenDeleteOrderModal,
+    handleCloseDeleteOrderModal,
   };
 }

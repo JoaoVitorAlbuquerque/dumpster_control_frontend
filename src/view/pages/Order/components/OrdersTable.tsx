@@ -21,6 +21,7 @@ interface OrdersTableProps {
   onGoToNextPage(): void;
   onGoToLastPage(): void;
   onOpenEditOrderModal(order: Request): void;
+  onOpenDeleteOrderModal(order: Request): void;
 }
 
 export function OrdersTable({
@@ -35,6 +36,7 @@ export function OrdersTable({
   onGoToNextPage,
   onGoToLastPage,
   onOpenEditOrderModal,
+  onOpenDeleteOrderModal,
 }: OrdersTableProps) {
   return (
     <>
@@ -140,7 +142,10 @@ export function OrdersTable({
                         <SquarePenIcon className="text-[#00786f]" />
                       </button>
 
-                      <button onClick={() => order} className="cursor-pointer">
+                      <button
+                        onClick={() => onOpenDeleteOrderModal(order)}
+                        className="cursor-pointer"
+                      >
                         <TrashIcon className="w-6 h-6 text-[#c92a2a]" />
                       </button>
                     </div>
