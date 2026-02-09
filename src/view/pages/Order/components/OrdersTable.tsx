@@ -1,4 +1,5 @@
 import type { Request } from "../../../../app/entities/Request";
+import { cn } from "../../../../app/utils/cn";
 import { formatDate } from "../../../../app/utils/formatDate";
 import { Button } from "../../../components/Button";
 import { Spinner } from "../../../components/Spinner";
@@ -15,6 +16,7 @@ interface OrdersTableProps {
   onGoToPreviousPage(): void;
   onGoToNextPage(): void;
   onGoToLastPage(): void;
+  onOpenEditOrderModal(order: Request): void;
 }
 
 export function OrdersTable({
@@ -28,6 +30,7 @@ export function OrdersTable({
   onGoToPreviousPage,
   onGoToNextPage,
   onGoToLastPage,
+  onOpenEditOrderModal,
 }: OrdersTableProps) {
   return (
     <>
@@ -71,16 +74,65 @@ export function OrdersTable({
                     {order.addressFormatted ?? order.address}
                   </TableComponents.Cell>
                   <TableComponents.Cell>{order.name}</TableComponents.Cell>
-                  <TableComponents.Cell>{order.activity}</TableComponents.Cell>
+                  <TableComponents.Cell>
+                    <span className="p-3 rounded-full bg-gray-500 font-semibold text-white">
+                      {order.activity === "CLEANING"
+                        ? "Limpeza"
+                        : order.activity === "TREE"
+                          ? "Corte de Árvore"
+                          : order.activity === "CONSTRUCTION"
+                            ? "Construção"
+                            : order.activity === "GROUND"
+                              ? "Terra"
+                              : "-"}
+                    </span>
+                  </TableComponents.Cell>
                   <TableComponents.Cell>{order.contact}</TableComponents.Cell>
-                  <TableComponents.Cell>{order.status}</TableComponents.Cell>
-                  <TableComponents.Cell>{order.priority}</TableComponents.Cell>
+                  <TableComponents.Cell>
+                    <span
+                      className={cn(
+                        "p-3 rounded-full bg-amber-500 font-semibold text-white",
+                        order.status === "UNDER_REVIEW" && "bg-yellow-500",
+                        order.status === "APPROVED" && "bg-green-500",
+                        order.status === "DELIVERED" && "bg-green-500",
+                        order.status === "COMPLETED" && "bg-green-500",
+                        order.status === "CANCELLED" && "bg-red-500",
+                      )}
+                    >
+                      {order.status === "REQUESTED"
+                        ? "Solicitado"
+                        : order.status === "UNDER_REVIEW"
+                          ? "Em revisão"
+                          : order.status === "APPROVED"
+                            ? "Aprovado"
+                            : order.status === "DELIVERED"
+                              ? "Entregue"
+                              : order.status === "COMPLETED"
+                                ? "Concluído"
+                                : order.status === "CANCELLED"
+                                  ? "Cancelado"
+                                  : "-"}
+                    </span>
+                  </TableComponents.Cell>
+                  <TableComponents.Cell>
+                    <span
+                      className={cn(
+                        "p-3 rounded-full bg-slate-500 font-semibold text-white",
+                        order.priority === "HIGH" && "bg-red-500",
+                      )}
+                    >
+                      {order.priority === "HIGH" ? "Alta" : "Baixa"}
+                    </span>
+                  </TableComponents.Cell>
                   <TableComponents.Cell>
                     {order.description}
                   </TableComponents.Cell>
                   <TableComponents.Cell>
                     <div className="flex items-center gap-2">
-                      <button onClick={() => order} className="cursor-pointer">
+                      <button
+                        onClick={() => onOpenEditOrderModal(order)}
+                        className="cursor-pointer"
+                      >
                         {/* <SquarePen className="text-[#00786f]" /> */}
                         Editar
                       </button>

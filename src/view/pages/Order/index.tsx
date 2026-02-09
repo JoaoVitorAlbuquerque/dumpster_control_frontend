@@ -1,5 +1,6 @@
 import { FiltersModal } from "./components/FiltersModal";
 import { OrdersTable } from "./components/OrdersTable";
+import { EditOrderModal } from "./modals/EditOrderModal";
 import { useOrderPageController } from "./useOrderPageController";
 
 export function OrderPage() {
@@ -22,6 +23,10 @@ export function OrderPage() {
     handleResetFilters,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
+    isEditOrderModalOpen,
+    orderBeingEdited,
+    handleOpenEditOrderModal,
+    handleCloseEditOrderModal,
   } = useOrderPageController();
 
   return (
@@ -83,7 +88,7 @@ export function OrderPage() {
         onGoToPreviousPage={goToPreviousPage}
         onGoToNextPage={goToNextPage}
         onGoToLastPage={goToLastPage}
-        // onOpenEditLumberMillModa={handleOpenEditLumberMillModa}
+        onOpenEditOrderModal={handleOpenEditOrderModal}
         // onOpenDeleteLumberMillModal={handleOpenDeleteLumberMillModal}
       />
 
@@ -93,6 +98,14 @@ export function OrderPage() {
         initialFilters={filters}
         onApplyFilters={handleApplyFilters}
       />
+
+      {orderBeingEdited && (
+        <EditOrderModal
+          open={isEditOrderModalOpen}
+          onClose={handleCloseEditOrderModal}
+          order={orderBeingEdited}
+        />
+      )}
     </div>
   );
 }

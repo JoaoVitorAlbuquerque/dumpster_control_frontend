@@ -6,9 +6,14 @@ import type {
   RequestFilters,
   Status,
 } from "../../../app/services/requestsService/getAll";
+import type { Request } from "../../../app/entities/Request";
 
 export function useOrderPageController() {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
+  const [isEditOrderModalOpen, setIsEditOrderModalOpen] = useState(false);
+  const [orderBeingEdited, setOrderBeingEdited] = useState<null | Request>(
+    null,
+  );
   const [searchParams, setSearchParams] = useSearchParams();
   const initialFilters = getFiltersFromSearchParams(searchParams);
   const [filters, setFilters] = useState<RequestFilters>(initialFilters);
@@ -21,6 +26,16 @@ export function useOrderPageController() {
 
   const handleCloseFiltersModal = useCallback(() => {
     setIsFiltersModalOpen(false);
+  }, []);
+
+  const handleOpenEditOrderModal = useCallback((order: Request) => {
+    setOrderBeingEdited(order);
+    setIsEditOrderModalOpen(true);
+  }, []);
+
+  const handleCloseEditOrderModal = useCallback(() => {
+    setOrderBeingEdited(null);
+    setIsEditOrderModalOpen(false);
   }, []);
 
   const { request, isLoading, totalCount } = useRequests(
@@ -112,5 +127,9 @@ export function useOrderPageController() {
     handleResetFilters,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
+    isEditOrderModalOpen,
+    orderBeingEdited,
+    handleOpenEditOrderModal,
+    handleCloseEditOrderModal,
   };
 }
