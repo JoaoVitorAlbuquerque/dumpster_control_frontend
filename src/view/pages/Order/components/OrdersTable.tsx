@@ -2,6 +2,10 @@ import type { Request } from "../../../../app/entities/Request";
 import { cn } from "../../../../app/utils/cn";
 import { formatDate } from "../../../../app/utils/formatDate";
 import { Button } from "../../../components/Button";
+import { ChevronRightIcon } from "../../../components/icons/ChevronRightIcon";
+import { ChevronsRightIcon } from "../../../components/icons/ChevronsRightIcon";
+import { SquarePenIcon } from "../../../components/icons/SquarePenIcon";
+import { TrashIcon } from "../../../components/icons/TrashIcon";
 import { Spinner } from "../../../components/Spinner";
 import { TableComponents } from "../../../components/TableElements";
 
@@ -133,13 +137,11 @@ export function OrdersTable({
                         onClick={() => onOpenEditOrderModal(order)}
                         className="cursor-pointer"
                       >
-                        {/* <SquarePen className="text-[#00786f]" /> */}
-                        Editar
+                        <SquarePenIcon className="text-[#00786f]" />
                       </button>
 
                       <button onClick={() => order} className="cursor-pointer">
-                        {/* <TrashIcon className="w-6 h-6 text-[#c92a2a]" /> */}
-                        Deletar
+                        <TrashIcon className="w-6 h-6 text-[#c92a2a]" />
                       </button>
                     </div>
                   </TableComponents.Cell>
@@ -164,7 +166,7 @@ export function OrdersTable({
             className="px-4 py-2 rounded disabled:opacity-50 transition-all"
           >
             <div className="flex items-center justify-center gap-1">
-              {/* <ChevronsRightIcon className="rotate-180" /> */}
+              <ChevronsRightIcon className="rotate-180" />
 
               <span>Primeira página</span>
             </div>
@@ -176,7 +178,7 @@ export function OrdersTable({
             className="px-4 py-2 rounded disabled:opacity-50 transition-all"
           >
             <div className="flex items-center justify-center gap-1">
-              {/* <ChevronRightIcon className="rotate-180" /> */}
+              <ChevronRightIcon className="rotate-180" />
 
               <span>Página anterior</span>
             </div>
@@ -194,7 +196,7 @@ export function OrdersTable({
             <div className="flex items-center justify-center gap-1">
               <span>Próxima página</span>
 
-              {/* <ChevronRightIcon /> */}
+              <ChevronRightIcon />
             </div>
           </Button>
 
@@ -206,7 +208,7 @@ export function OrdersTable({
             <div className="flex items-center justify-center gap-1">
               <span>Última página</span>
 
-              {/* <ChevronsRightIcon /> */}
+              <ChevronsRightIcon />
             </div>
           </Button>
         </div>
