@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { requestsService } from "../../../app/services/requestsService";
-import type { RequestParams } from "../../../app/services/requestsService/create";
 import toast from "react-hot-toast";
+import type { RequestAdminParams } from "../../../app/services/requestsService/createAdmin";
 
 const schema = z.object({
   cpf: z
@@ -15,12 +15,21 @@ const schema = z.object({
   name: z.string().min(1, "Nome é obrigatório."),
   contact: z.string().min(1, "Número de contato é obrigatório."),
   activity: z.enum(["CLEANING", "TREE", "CONSTRUCTION", "GROUND"]),
+  status: z.enum([
+    "REQUESTED",
+    "UNDER_REVIEW",
+    "APPROVED",
+    "DELIVERED",
+    "COMPLETED",
+    "CANCELLED",
+  ]),
+  priority: z.enum(["LOW", "HIGH"]),
   description: z.string().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
 
-export function useRequestController() {
+export function useAdminRequestController() {
   const {
     handleSubmit: hookFormSubmit,
     register,
@@ -35,8 +44,8 @@ export function useRequestController() {
 
   const queryClient = useQueryClient();
   const { isPending: isLoading, mutateAsync } = useMutation({
-    mutationFn: async (data: RequestParams) => {
-      return requestsService.create(data);
+    mutationFn: async (data: RequestAdminParams) => {
+      return requestsService.createAdmin(data);
     },
   });
 

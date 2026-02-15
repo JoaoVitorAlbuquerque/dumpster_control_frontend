@@ -1,13 +1,13 @@
 import { Controller } from "react-hook-form";
 import { FormTextarea } from "../../components/FormTextarea";
 import { Input } from "../../components/Input";
-import { useRequestController } from "./useRequestController";
+import { useAdminRequestController } from "./useAdminRequestController";
 import { Select } from "../../components/Select";
 import { Button } from "../../components/Button";
 
-export function Request() {
+export function AdminRequest() {
   const { isLoading, errors, handleSubmit, register, control } =
-    useRequestController();
+    useAdminRequestController();
 
   return (
     <div className="flex h-full items-center justify-center">
@@ -18,13 +18,8 @@ export function Request() {
         <div>
           <div className="flex flex-col items-center gap-2 bg-[#00000008] border-b border-b-gray-300 p-4 rounded-md">
             <span className="text-2xl font-semibold">
-              Solicitação de Caçamba
+              Solicitar de Caçamba - Painel Administrativo
             </span>
-
-            {/* <div className="flex items-center justify-center gap-2">
-              <span className="text-amber-500">⚠️ Região não compatível</span>
-              <div className="size-4 rounded-full bg-amber-500 animate-pulse" />
-            </div> */}
           </div>
 
           <div className="flex items-center py-2 px-6 shadow-lg">
@@ -85,6 +80,68 @@ export function Request() {
                   {
                     value: "GROUND",
                     label: "Terra",
+                  },
+                ]}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="status"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                placeholder="Status *"
+                onChange={onChange}
+                value={value}
+                error={errors.status?.message}
+                options={[
+                  {
+                    value: "REQUESTED",
+                    label: "Solicitado",
+                  },
+                  {
+                    value: "UNDER_REVIEW",
+                    label: "Em Análise",
+                  },
+                  {
+                    value: "APPROVED",
+                    label: "Aprovado",
+                  },
+                  {
+                    value: "DELIVERED",
+                    label: "Entregue",
+                  },
+                  {
+                    value: "COMPLETED",
+                    label: "Concluído",
+                  },
+                  {
+                    value: "CANCELLED",
+                    label: "Cancelado",
+                  },
+                ]}
+              />
+            )}
+          />
+
+          <Controller
+            control={control}
+            name="priority"
+            render={({ field: { onChange, value } }) => (
+              <Select
+                placeholder="Prioridade *"
+                onChange={onChange}
+                value={value}
+                error={errors.priority?.message}
+                options={[
+                  {
+                    value: "LOW",
+                    label: "Baixa",
+                  },
+                  {
+                    value: "HIGH",
+                    label: "Alta",
                   },
                 ]}
               />
