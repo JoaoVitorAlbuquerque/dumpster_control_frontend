@@ -11,6 +11,7 @@ import { ForgotPassword } from "../view/pages/ForgotPassword/indes";
 import { ResetPassword } from "../view/pages/ResetPassword/indes";
 import { OrderPage } from "../view/pages/Order";
 import { AdminRequest } from "../view/pages/AdminRequest";
+import { RequestsMap } from "../view/pages/RequestsMap";
 
 export function Router() {
   const { signout } = useAuth();
@@ -45,7 +46,7 @@ export function Router() {
             <Route path="settings" element={<h1>Admin Settings</h1>} />
             <Route path="orders" element={<AdminRequest />} />
             <Route path="reports" element={<OrderPage />} />
-            <Route path="map" element={<h1>Admin Map</h1>} />
+            <Route path="map" element={<RequestsMap />} />
           </Route>
         </Route>
       </Routes>
