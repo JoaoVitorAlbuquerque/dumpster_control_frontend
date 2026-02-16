@@ -3,8 +3,6 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { AuthGuard } from "./AuthGuard";
 import { Login } from "../view/pages/Login/indes";
 import { AuthLayout } from "../view/layouts/AuthLayout";
-import { Button } from "../view/components/Button";
-import { useAuth } from "../app/hooks/useAuth";
 import { WrappedScreen } from "../view/layouts/WrappedScreen";
 import { Request } from "../view/pages/Request";
 import { ForgotPassword } from "../view/pages/ForgotPassword/indes";
@@ -12,10 +10,9 @@ import { ResetPassword } from "../view/pages/ResetPassword/indes";
 import { OrderPage } from "../view/pages/Order";
 import { AdminRequest } from "../view/pages/AdminRequest";
 import { RequestsMap } from "../view/pages/RequestsMap";
+import { Dashboard } from "../view/pages/Dashboard";
 
 export function Router() {
-  const { signout } = useAuth();
-
   return (
     <BrowserRouter>
       <Routes>
@@ -34,14 +31,7 @@ export function Router() {
 
         <Route element={<AuthGuard isPrivate />}>
           <Route element={<WrappedScreen />}>
-            <Route
-              path="admin"
-              element={
-                <h1>
-                  <Button onClick={signout}>Sair</Button>
-                </h1>
-              }
-            />
+            <Route path="admin" element={<Dashboard />} />
             <Route path="users" element={<h1>Admin Users</h1>} />
             <Route path="settings" element={<h1>Admin Settings</h1>} />
             <Route path="orders" element={<AdminRequest />} />
