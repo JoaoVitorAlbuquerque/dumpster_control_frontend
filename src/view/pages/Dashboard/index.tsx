@@ -13,6 +13,8 @@ import {
 
 import { useRequestsAnalytics } from "../../../app/hooks/useRequestsAnalytics";
 import { StatusBarShape } from "./components/StatusBarShape";
+import { useAuth } from "../../../app/hooks/useAuth";
+import { Button } from "../../components/Button";
 
 export function Dashboard() {
   const { requestAnalytics, isLoadingAnalytics, isErrorAnalytics } =
@@ -20,6 +22,7 @@ export function Dashboard() {
       bucket: "day",
       // startDate/endDate opcionais
     });
+  const { signout } = useAuth();
 
   if (isLoadingAnalytics) return <div>Carregando…</div>;
   if (isErrorAnalytics || !requestAnalytics)
@@ -34,6 +37,7 @@ export function Dashboard() {
         <Card title="Entregues" value={requestAnalytics.summary.delivered} />
         <Card title="Concluídas" value={requestAnalytics.summary.completed} />
         <Card title="Canceladas" value={requestAnalytics.summary.cancelled} />
+        <Button onClick={signout}>Sair</Button>
       </div>
 
       {/* Linha: volume */}

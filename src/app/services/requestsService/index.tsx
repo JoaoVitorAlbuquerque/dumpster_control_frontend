@@ -2,6 +2,7 @@ import { create } from "./create";
 import { createAdmin } from "./createAdmin";
 import { getAll } from "./getAll";
 import { getAnalytics } from "./getAnalytics";
+import { getProtocol } from "./getProtocol";
 import { remove } from "./remove";
 import { update } from "./update";
 
@@ -10,6 +11,7 @@ export const requestsService = {
   createAdmin,
   getAll,
   getAnalytics,
+  getProtocol,
   update,
   remove,
 };

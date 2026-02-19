@@ -36,6 +36,13 @@ export function WrappedScreen() {
                 Pedidos
               </NavigateLink>
 
+              <NavigateLink
+                icon={<SearchIcon />}
+                linkTo="/admin/consult-protocol"
+              >
+                Consultar Protocolo
+              </NavigateLink>
+
               <NavigateLink icon={<MapPinned />} linkTo="/map">
                 Mapa
               </NavigateLink>
@@ -46,7 +53,7 @@ export function WrappedScreen() {
                 Solicitar Caçamba
               </NavigateLink>
 
-              <NavigateLink icon={<SearchIcon />} linkTo="/">
+              <NavigateLink icon={<SearchIcon />} linkTo="/consult-protocol">
                 Consultar Protocolo
               </NavigateLink>
             </>
@@ -64,9 +71,9 @@ export function WrappedScreen() {
         )}
       </header>
 
-      <div className="flex-1 mt-4">
+      <main className="flex-1 mt-4">
         <Outlet />
-      </div>
+      </main>
 
       <footer className="w-full bg-white px-4 shadow-2xl mt-2">
         Developed by <span className="text-gray-800 font-bold">CodeLand</span> -
