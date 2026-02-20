@@ -8,6 +8,7 @@ import { SearchIcon } from "../components/icons/SearchIcon";
 import { MapPinned } from "../components/icons/MapPinned";
 import { SheetIcon } from "../components/icons/SheetIcon";
 import { HomeIcon } from "../components/icons/HomeIcon";
+import { UserMenu } from "../components/UserMenu";
 
 export function WrappedScreen() {
   const { signedIn, user } = useAuth();
@@ -67,7 +68,8 @@ export function WrappedScreen() {
             </NavigateLink>
           </div>
         ) : (
-          <div className="text-gray-700 font-medium">Olá, {user?.name}</div>
+          // <div className="text-gray-700 font-medium">Olá, {user?.name}</div>
+          <UserMenu />
         )}
       </header>
 
