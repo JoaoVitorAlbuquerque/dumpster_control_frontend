@@ -141,8 +141,8 @@
 //   return <span className={`${base} bg-gray-200 text-gray-700`}>{status}</span>;
 // }
 
-import { Button } from "../components/Button";
-import { Input } from "../components/Input";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
 import { useProtocolConsultPageController } from "./useProtocolConsultPageController";
 
 export function ProtocolConsultPage() {

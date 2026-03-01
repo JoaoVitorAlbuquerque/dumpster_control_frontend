@@ -3,8 +3,8 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import z from "zod";
-import type { RequestProtocolParams } from "../../app/services/requestsService/getProtocol";
-import { requestsService } from "../../app/services/requestsService";
+import type { RequestProtocolParams } from "../../../app/services/requestsService/getProtocol";
+import { requestsService } from "../../../app/services/requestsService";
 
 const schema = z.object({
   protocol: z.string().nonempty("Protocolo é obrigatório"),

@@ -11,7 +11,7 @@ import { HomeIcon } from "../components/icons/HomeIcon";
 import { UserMenu } from "../components/UserMenu";
 
 export function WrappedScreen() {
-  const { signedIn, user } = useAuth();
+  const { signedIn } = useAuth();
 
   return (
     <div className="flex flex-col h-screen bg-[#f8fafc]">

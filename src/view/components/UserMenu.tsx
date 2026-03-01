@@ -3,6 +3,7 @@ import { DropdownMenu } from "./DropdownMenu";
 import { useAuth } from "../../app/hooks/useAuth";
 import { NavLink } from "react-router-dom";
 import { HomeIcon } from "./icons/HomeIcon";
+import { UserCogIcon } from "./icons/UserCogIcon";
 
 export function UserMenu() {
   const { signout, user } = useAuth();
@@ -29,6 +30,11 @@ export function UserMenu() {
         <DropdownMenu.Item className="flex items-center gap-2">
           <HomeIcon className="w-6 h-6" />
           <NavLink to="/">Home</NavLink>
+        </DropdownMenu.Item>
+
+        <DropdownMenu.Item className="flex items-center gap-2">
+          <UserCogIcon className="w-6 h-6" />
+          <NavLink to="/settings">Configurar Perfil</NavLink>
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

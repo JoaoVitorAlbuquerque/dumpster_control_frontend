@@ -11,8 +11,9 @@ import { OrderPage } from "../view/pages/Order";
 import { AdminRequest } from "../view/pages/AdminRequest";
 import { RequestsMap } from "../view/pages/RequestsMap";
 import { Dashboard } from "../view/pages/Dashboard";
-import { ProtocolConsultPage } from "../view/ProtocolConsultPage";
+import { ProtocolConsultPage } from "../view/pages/ProtocolConsultPage";
 import { NotFoundPage } from "../view/components/NotFoundPage";
+import { ProfilePage } from "../view/pages/ProfilePage";
 
 export function Router() {
   return (
@@ -36,7 +37,7 @@ export function Router() {
           <Route element={<WrappedScreen />}>
             <Route path="admin" element={<Dashboard />} />
             <Route path="users" element={<h1>Admin Users</h1>} />
-            <Route path="settings" element={<h1>Admin Settings</h1>} />
+            <Route path="settings" element={<ProfilePage />} />
             <Route path="orders" element={<AdminRequest />} />
             <Route path="reports" element={<OrderPage />} />
             <Route
