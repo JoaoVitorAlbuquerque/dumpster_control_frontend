@@ -6,6 +6,9 @@ export function RequestSuccess() {
 
   const rules = getActivityGuidelines(activity ?? "CLEANING");
 
+  console.log("Activity:", activity);
+  console.log("Rules:", rules);
+
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center p-6">
       <div className="max-w-3xl w-full bg-white rounded-2xl shadow-lg">

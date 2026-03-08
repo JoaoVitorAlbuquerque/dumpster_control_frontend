@@ -52,7 +52,7 @@ export function useRequestController() {
 
       console.log("Solicitação criada:", result);
 
-      navigate(`/request/success/${result.protocol}`);
+      navigate(`/request/success/${result.protocol}/${data.activity}`);
       queryClient.invalidateQueries({ queryKey: ["requests"] });
       toast.success("Solicitação feita com sucesso!");
       reset();

@@ -31,7 +31,7 @@ export function Router() {
             <Route path="/" element={<Request />} />
             <Route path="/consult-protocol" element={<ProtocolConsultPage />} />
             <Route
-              path="/request/success/:protocol"
+              path="/request/success/:protocol/:activity"
               element={<RequestSuccess />}
             />
             <Route path="*" element={<NotFoundPage />} />
