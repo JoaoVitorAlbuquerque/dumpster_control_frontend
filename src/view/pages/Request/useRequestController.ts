@@ -5,12 +5,14 @@ import z from "zod";
 import { requestsService } from "../../../app/services/requestsService";
 import type { RequestParams } from "../../../app/services/requestsService/create";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   cpf: z
     .string()
     .min(11, "CPF deve ter no mínimo 11 dígitos.")
     .max(11, "CPF deve ter no máximo 11 dígitos."),
+  email: z.email("Email inválido."),
   address: z.string().min(1, "Endereço é obrigatório."),
   name: z.string().min(1, "Nome é obrigatório."),
   contact: z.string().min(1, "Número de contato é obrigatório."),
@@ -33,6 +35,8 @@ export function useRequestController() {
     resolver: zodResolver(schema),
   });
 
+  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
   const { isPending: isLoading, mutateAsync } = useMutation({
     mutationFn: async (data: RequestParams) => {
@@ -42,10 +46,13 @@ export function useRequestController() {
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      await mutateAsync({
+      const result = await mutateAsync({
         ...data,
       });
 
+      console.log("Solicitação criada:", result);
+
+      navigate(`/request/success/${result.protocol}`);
       queryClient.invalidateQueries({ queryKey: ["requests"] });
       toast.success("Solicitação feita com sucesso!");
       reset();

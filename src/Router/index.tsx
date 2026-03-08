@@ -14,6 +14,7 @@ import { Dashboard } from "../view/pages/Dashboard";
 import { ProtocolConsultPage } from "../view/pages/ProtocolConsultPage";
 import { NotFoundPage } from "../view/components/NotFoundPage";
 import { ProfilePage } from "../view/pages/ProfilePage";
+import { RequestSuccess } from "../view/pages/RequestSuccess";
 
 export function Router() {
   return (
@@ -29,6 +30,10 @@ export function Router() {
             <Route path="reset-password" element={<ResetPassword />} />
             <Route path="/" element={<Request />} />
             <Route path="/consult-protocol" element={<ProtocolConsultPage />} />
+            <Route
+              path="/request/success/:protocol"
+              element={<RequestSuccess />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Route>

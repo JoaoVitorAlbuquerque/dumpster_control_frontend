@@ -43,6 +43,12 @@ export function Request() {
           />
 
           <Input
+            placeholder="E-mail *"
+            error={errors.email?.message}
+            {...register("email")}
+          />
+
+          <Input
             placeholder="Endereço *"
             error={errors.address?.message}
             {...register("address")}
