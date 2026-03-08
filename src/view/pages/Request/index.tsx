@@ -29,8 +29,8 @@ export function Request() {
 
           <div className="flex items-center py-2 px-6 shadow-lg">
             <span>
-              Para região não compatível, a solicitação será desconsiderada.
-              Verifique seu protocolo via e-mail!
+              Região compatível: <strong>Moreira Sales /PR e Distritos</strong>.
+              Verifique seu protocolo via E-mail!
             </span>
           </div>
         </div>

@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import Map, { Marker, Popup } from "react-map-gl";
+import Map, { Layer, Marker, Popup, Source } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { httpClient } from "../../../app/services/httpClient";
+
+import cityGeoJson from "../../../assets/city.geojson?url";
 
 type MapPoint = {
   id: string;
@@ -17,6 +19,25 @@ type MapPoint = {
 export function RequestsMap() {
   const [points, setPoints] = useState<MapPoint[]>([]);
   const [selected, setSelected] = useState<MapPoint | null>(null);
+  const [cityData, setCityData] = useState<any>(null);
+
+  const cityFillLayer = {
+    id: "city-area",
+    type: "fill",
+    paint: {
+      "fill-color": "#2563eb",
+      "fill-opacity": 0.15,
+    },
+  } as const;
+
+  const cityBorderLayer = {
+    id: "city-border",
+    type: "line",
+    paint: {
+      "line-color": "#2563eb",
+      "line-width": 3,
+    },
+  } as const;
 
   const token = import.meta.env.VITE_MAPBOX_TOKEN as string;
 
@@ -24,6 +45,7 @@ export function RequestsMap() {
     (async () => {
       const res = await httpClient.get("/requests/map/delivered");
       const data = await res.data;
+      setCityData(data);
 
       // garante number
       const normalized = (data as any[]).map((p) => ({
@@ -51,7 +73,15 @@ export function RequestsMap() {
         mapboxAccessToken={token}
         initialViewState={initialViewState}
         mapStyle="mapbox://styles/mapbox/streets-v12"
+        style={{ width: "100%", height: "100%" }}
       >
+        {cityData && (
+          <Source id="city" type="geojson" data={cityGeoJson}>
+            <Layer {...cityFillLayer} />
+            <Layer {...cityBorderLayer} />
+          </Source>
+        )}
+
         {points.map((p) => (
           <Marker
             key={p.id}

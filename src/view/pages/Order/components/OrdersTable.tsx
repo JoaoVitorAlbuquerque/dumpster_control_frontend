@@ -81,11 +81,11 @@ export function OrdersTable({
                   </TableComponents.Cell>
                   <TableComponents.Cell>{order.name}</TableComponents.Cell>
                   <TableComponents.Cell>
-                    <span className="p-3 rounded-full bg-gray-500 font-semibold text-white">
+                    <span className="flex items-center justify-center w-full p-3 rounded-full bg-gray-500 font-semibold text-white">
                       {order.activity === "CLEANING"
                         ? "Limpeza"
                         : order.activity === "TREE"
-                          ? "Corte de Árvore"
+                          ? "Árvore"
                           : order.activity === "CONSTRUCTION"
                             ? "Construção"
                             : order.activity === "GROUND"
