@@ -9,6 +9,7 @@ import { MapPinned } from "../components/icons/MapPinned";
 import { SheetIcon } from "../components/icons/SheetIcon";
 import { HomeIcon } from "../components/icons/HomeIcon";
 import { UserMenu } from "../components/UserMenu";
+import { TriangleAlertIcon } from "../components/icons/TriangleAlertIcon";
 
 export function WrappedScreen() {
   const { signedIn } = useAuth();
@@ -35,6 +36,13 @@ export function WrappedScreen() {
 
               <NavigateLink icon={<SheetIcon />} linkTo="/reports">
                 Pedidos
+              </NavigateLink>
+
+              <NavigateLink
+                icon={<TriangleAlertIcon />}
+                linkTo="/abuse-monitoring"
+              >
+                Alertas
               </NavigateLink>
 
               <NavigateLink

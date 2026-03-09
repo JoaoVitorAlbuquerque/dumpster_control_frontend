@@ -15,6 +15,7 @@ import { ProtocolConsultPage } from "../view/pages/ProtocolConsultPage";
 import { NotFoundPage } from "../view/components/NotFoundPage";
 import { ProfilePage } from "../view/pages/ProfilePage";
 import { RequestSuccess } from "../view/pages/RequestSuccess";
+import { AbuseMonitoringPage } from "../view/pages/AbuseMonitoringPage";
 
 export function Router() {
   return (
@@ -45,6 +46,7 @@ export function Router() {
             <Route path="settings" element={<ProfilePage />} />
             <Route path="orders" element={<AdminRequest />} />
             <Route path="reports" element={<OrderPage />} />
+            <Route path="abuse-monitoring" element={<AbuseMonitoringPage />} />
             <Route
               path="admin/consult-protocol"
               element={<ProtocolConsultPage />}

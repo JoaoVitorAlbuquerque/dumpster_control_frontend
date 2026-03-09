@@ -1,5 +1,6 @@
 import { create } from "./create";
 import { createAdmin } from "./createAdmin";
+import { getAbuseReports } from "./getAbuseReports";
 import { getAll } from "./getAll";
 import { getAnalytics } from "./getAnalytics";
 import { getProtocol } from "./getProtocol";
@@ -12,6 +13,7 @@ export const requestsService = {
   getAll,
   getAnalytics,
   getProtocol,
+  getAbuseReports,
   update,
   remove,
 };

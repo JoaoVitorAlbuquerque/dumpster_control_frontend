@@ -34,3 +34,20 @@ export interface Request {
   updatedAt: Date;
   isActive: boolean;
 }
+
+export interface CpfRankingItem {
+  cpf: string;
+  total: number;
+  requests: Request[];
+}
+
+export interface AddressRankingItem {
+  address: string;
+  total: number;
+  requests: Request[];
+}
+
+export interface AbuseReportResponse {
+  rankingCpf: CpfRankingItem[];
+  rankingAddress: AddressRankingItem[];
+}
