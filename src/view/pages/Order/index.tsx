@@ -65,6 +65,7 @@ export function OrderPage() {
           <button
             onClick={() => {}}
             type="button"
+            hidden
             className="flex items-center gap-1 cursor-pointer p-2 rounded-md bg-gray-200 hover:bg-gray-100 transition-colors"
           >
             {/* <DownloadFileIcon /> */}
