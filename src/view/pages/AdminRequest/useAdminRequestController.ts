@@ -5,12 +5,14 @@ import z from "zod";
 import { requestsService } from "../../../app/services/requestsService";
 import toast from "react-hot-toast";
 import type { RequestAdminParams } from "../../../app/services/requestsService/createAdmin";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   cpf: z
     .string()
     .min(11, "CPF deve ter no mínimo 11 dígitos.")
     .max(11, "CPF deve ter no máximo 11 dígitos."),
+  email: z.email("Email inválido."),
   address: z.string().min(1, "Endereço é obrigatório."),
   name: z.string().min(1, "Nome é obrigatório."),
   contact: z.string().min(1, "Número de contato é obrigatório."),
@@ -42,6 +44,8 @@ export function useAdminRequestController() {
     resolver: zodResolver(schema),
   });
 
+  const navigate = useNavigate();
+
   const queryClient = useQueryClient();
   const { isPending: isLoading, mutateAsync } = useMutation({
     mutationFn: async (data: RequestAdminParams) => {
@@ -51,10 +55,11 @@ export function useAdminRequestController() {
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      await mutateAsync({
+      const result = await mutateAsync({
         ...data,
       });
 
+      navigate(`/admin/request/success/${result.protocol}/${data.activity}`);
       queryClient.invalidateQueries({ queryKey: ["requests"] });
       toast.success("Solicitação feita com sucesso!");
       reset();

@@ -51,6 +51,10 @@ export function Router() {
               path="admin/consult-protocol"
               element={<ProtocolConsultPage />}
             />
+            <Route
+              path="admin/request/success/:protocol/:activity"
+              element={<RequestSuccess />}
+            />
             <Route path="map" element={<RequestsMap />} />
           </Route>
         </Route>
