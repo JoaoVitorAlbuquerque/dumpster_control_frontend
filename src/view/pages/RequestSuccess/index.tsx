@@ -6,9 +6,6 @@ export function RequestSuccess() {
 
   const rules = getActivityGuidelines(activity ?? "CLEANING");
 
-  console.log("Activity:", activity);
-  console.log("Rules:", rules);
-
   return (
     <div className="min-h-screen bg-gray-50 flex justify-center p-6">
       <div className="max-w-3xl w-full bg-white rounded-2xl shadow-lg">
@@ -74,6 +71,31 @@ export function RequestSuccess() {
                   ))}
                 </ul>
               </div>
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <div className="bg-orange-50 border-l-4 border-orange-400 p-4 rounded-r-md">
+              <p className="font-semibold text-orange-700 mb-2 text-sm">
+                ⚠️ Atenção!
+              </p>
+
+              <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                Não é permitido o descarte de materiais como:{" "}
+                <strong>
+                  papelão, plástico, roupas, calçados, tecidos, latas, vidros,
+                  arames, ferro, PVC e demais recicláveis.
+                </strong>
+              </p>
+
+              <p className="text-sm font-bold text-red-600 mb-3">
+                NÃO PODEM TER MISTURA DE RESÍDUOS NA MESMA CAÇAMBA
+              </p>
+
+              <p className="text-sm text-green-700">
+                ✅ Contamos com a colaboração de todos para manter a cidade
+                limpa, organizada e ambientalmente responsável.
+              </p>
             </div>
           </div>
 
