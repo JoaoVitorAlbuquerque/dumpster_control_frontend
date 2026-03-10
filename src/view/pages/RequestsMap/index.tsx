@@ -5,6 +5,7 @@ import { httpClient } from "../../../app/services/httpClient";
 
 import cityGeoJson from "../../../assets/city.geojson?url";
 import cityBoundary from "../../../assets/city-boundary.geojson?url";
+import { MapLegend } from "./components/MapLegend";
 
 type MapPoint = {
   id: string;
@@ -69,7 +70,10 @@ export function RequestsMap() {
   }, [points]);
 
   return (
-    <div style={{ height: 600, width: "100%" }}>
+    <div
+      className="relative w-full h-full"
+      style={{ height: 600, width: "100%" }}
+    >
       <Map
         mapboxAccessToken={token}
         initialViewState={initialViewState}
@@ -163,6 +167,8 @@ export function RequestsMap() {
           </Popup>
         )}
       </Map>
+
+      <MapLegend />
     </div>
   );
 }

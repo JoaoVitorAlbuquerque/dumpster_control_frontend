@@ -163,7 +163,7 @@ export function ProtocolConsultPage() {
         </div>
 
         {/* Input + Botão */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
+        <div className="flex items-center flex-col sm:flex-row gap-3 sm:gap-4 mb-6">
           <Input
             type="text"
             placeholder="Ex: 2024000123"
