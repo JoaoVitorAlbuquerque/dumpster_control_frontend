@@ -4,6 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { httpClient } from "../../../app/services/httpClient";
 
 import cityGeoJson from "../../../assets/city.geojson?url";
+import cityBoundary from "../../../assets/city-boundary.geojson?url";
 
 type MapPoint = {
   id: string;
@@ -76,10 +77,32 @@ export function RequestsMap() {
         style={{ width: "100%", height: "100%" }}
       >
         {cityData && (
-          <Source id="city" type="geojson" data={cityGeoJson}>
-            <Layer {...cityFillLayer} />
-            <Layer {...cityBorderLayer} />
-          </Source>
+          <>
+            <Source id="city-boundary" type="geojson" data={cityBoundary}>
+              <Layer
+                id="city-boundary-fill"
+                type="fill"
+                paint={{
+                  "fill-color": "#94a3b8",
+                  "fill-opacity": 0.2,
+                }}
+              />
+
+              <Layer
+                id="city-boundary-line"
+                type="line"
+                paint={{
+                  "line-color": "#475569",
+                  "line-width": 2,
+                }}
+              />
+            </Source>
+
+            <Source id="city" type="geojson" data={cityGeoJson}>
+              <Layer {...cityFillLayer} />
+              <Layer {...cityBorderLayer} />
+            </Source>
+          </>
         )}
 
         {points.map((p) => (
