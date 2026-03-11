@@ -3,7 +3,7 @@ export interface Request {
   accountId?: string;
   protocol: string;
   cpf: string;
-  email: string;
+  email?: string;
   address: string;
   latitude: string;
   longitude: string;

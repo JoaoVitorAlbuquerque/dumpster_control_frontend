@@ -2,6 +2,7 @@ import { httpClient } from "../httpClient";
 
 export interface RequestAdminParams {
   cpf: string;
+  email?: string;
   address: string;
   name: string;
   contact: string;

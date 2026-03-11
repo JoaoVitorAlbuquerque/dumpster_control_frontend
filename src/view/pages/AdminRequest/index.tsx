@@ -40,6 +40,7 @@ export function AdminRequest() {
           <Input
             placeholder="E-mail *"
             error={errors.email?.message}
+            type="email"
             {...register("email")}
           />
 

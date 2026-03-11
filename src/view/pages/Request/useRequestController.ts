@@ -12,7 +12,7 @@ const schema = z.object({
     .string()
     .min(11, "CPF deve ter no mínimo 11 dígitos.")
     .max(11, "CPF deve ter no máximo 11 dígitos."),
-  email: z.email("Email inválido."),
+  email: z.string().optional(),
   address: z.string().min(1, "Endereço é obrigatório."),
   name: z.string().min(1, "Nome é obrigatório."),
   contact: z.string().min(1, "Número de contato é obrigatório."),

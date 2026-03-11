@@ -2,7 +2,7 @@ import { httpClient } from "../httpClient";
 
 export interface RequestParams {
   cpf: string;
-  email: string;
+  email?: string;
   address: string;
   name: string;
   contact: string;
