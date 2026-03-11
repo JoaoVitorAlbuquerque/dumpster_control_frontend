@@ -7,6 +7,8 @@ import type {
   Status,
 } from "../../../app/services/requestsService/getAll";
 import type { Request } from "../../../app/entities/Request";
+import toast from "react-hot-toast";
+import { httpClient } from "../../../app/services/httpClient";
 
 export function useOrderPageController() {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState(false);
@@ -120,6 +122,31 @@ export function useOrderPageController() {
     setFilters({});
   }
 
+  const downloadApprovedPdf = async () => {
+    try {
+      const response = await httpClient.get("/requests/approved/pdf", {
+        responseType: "blob",
+      });
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        `Pedidos_do_dia_${Date.now().toString()}.pdf`,
+      );
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      toast.success("Download do pdf concluído com êxito.");
+    } catch (error) {
+      toast.error("Erro ao baixar pdf");
+    }
+  };
+
   return {
     request,
     isLoading,
@@ -147,5 +174,6 @@ export function useOrderPageController() {
     selectedOrder,
     handleOpenDeleteOrderModal,
     handleCloseDeleteOrderModal,
+    downloadApprovedPdf,
   };
 }

@@ -1,8 +1,11 @@
+import { FilterIcon } from "lucide-react";
 import { FiltersModal } from "./components/FiltersModal";
 import { OrdersTable } from "./components/OrdersTable";
 import { DeleteOrderModal } from "./modals/DeleteOrderModal";
 import { EditOrderModal } from "./modals/EditOrderModal";
 import { useOrderPageController } from "./useOrderPageController";
+import { ResetIcon } from "@radix-ui/react-icons";
+import { CalendarCheckIcon } from "../../components/icons/CalendarCheckIcon";
 
 export function OrderPage() {
   const {
@@ -32,6 +35,7 @@ export function OrderPage() {
     selectedOrder,
     handleOpenDeleteOrderModal,
     handleCloseDeleteOrderModal,
+    downloadApprovedPdf,
   } = useOrderPageController();
 
   return (
@@ -44,7 +48,7 @@ export function OrderPage() {
             className="flex items-center gap-1 cursor-pointer disabled:cursor-wait p-2 rounded-md bg-gray-200 hover:bg-gray-100 transition-colors"
             disabled={isLoading}
           >
-            {/* <FilterIcon /> */}
+            <FilterIcon />
             <span>Filtros</span>
           </button>
 
@@ -57,7 +61,7 @@ export function OrderPage() {
               onClick={handleResetFilters}
               className="flex items-center gap-1 cursor-pointer p-2 rounded-md bg-gray-200 hover:bg-gray-100 transition-colors"
             >
-              {/* <ResetIcon className="w-4 h-4" /> */}
+              <ResetIcon className="w-4 h-4" />
               <span>Limpar Filtros</span>
             </button>
           )}
@@ -71,6 +75,15 @@ export function OrderPage() {
             {/* <DownloadFileIcon /> */}
 
             <span>Download XLSX</span>
+          </button>
+
+          <button
+            type="button"
+            className="flex items-center gap-1 cursor-pointer disabled:cursor-wait p-2 rounded-md bg-gray-200 hover:bg-gray-100 transition-colors"
+            onClick={() => downloadApprovedPdf()}
+          >
+            <CalendarCheckIcon className="w-6 h-6" />
+            <span>Pedidos do dia</span>
           </button>
         </div>
 
