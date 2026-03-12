@@ -1,3 +1,4 @@
+import { Spinner } from "../../components/Spinner";
 import { AbuseHistoryModal } from "./modals/AbuseHistoryModal";
 import { useAbuseMonitoringPageController } from "./useAbuseMonitoringPageController";
 
@@ -25,8 +26,14 @@ export function AbuseMonitoringPage() {
     handleCloseHistoryModal,
   } = useAbuseMonitoringPageController();
 
-  if (isinitialLoadingAbuseReport)
-    return <div className="p-8">Carregando painel...</div>;
+  if (isinitialLoadingAbuseReport) {
+    return (
+      <div className="w-full mt-2 flex items-center justify-center">
+        <Spinner className="w-6 h-6" />
+      </div>
+    );
+  }
+
   if (isErrorAbuseReport)
     return <div className="p-8 text-red-500">Erro ao carregar dados.</div>;
 

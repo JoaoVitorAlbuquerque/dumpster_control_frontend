@@ -208,14 +208,21 @@ export function ProtocolConsultPage() {
 
             <div className="space-y-3 text-xs sm:text-sm text-gray-700">
               <div>
-                <span className="font-semibold">Título:</span>{" "}
-                {protocolData.title}
+                <span className="font-semibold">Nome: </span>{" "}
+                {protocolData.name}
               </div>
 
               {protocolData.description && (
                 <div>
                   <span className="font-semibold">Descrição:</span>{" "}
                   {protocolData.description}
+                </div>
+              )}
+
+              {protocolData.addressFormatted && (
+                <div>
+                  <span className="font-semibold">Endereço: </span>{" "}
+                  {protocolData.addressFormatted}
                 </div>
               )}
 
@@ -236,14 +243,15 @@ export function ProtocolConsultPage() {
               {protocolData.activity && (
                 <div>
                   <span className="font-semibold">Atividade:</span>{" "}
-                  {protocolData.activity}
-                </div>
-              )}
-
-              {protocolData.priority && (
-                <div>
-                  <span className="font-semibold">Prioridade:</span>{" "}
-                  {protocolData.priority}
+                  {protocolData.activity === "CLEANING"
+                    ? "Limpeza"
+                    : protocolData.activity === "TREE"
+                      ? "Árvore"
+                      : protocolData.activity === "CONSTRUCTION"
+                        ? "Construção"
+                        : protocolData.activity === "GROUND"
+                          ? "Terra"
+                          : "-"}
                 </div>
               )}
             </div>
@@ -254,24 +262,48 @@ export function ProtocolConsultPage() {
   );
 }
 
-function StatusBadge({ status }: { status: string }) {
-  const base =
-    "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide";
+function StatusBadge({
+  status,
+}: {
+  status:
+    | "REQUESTED"
+    | "UNDER_REVIEW"
+    | "APPROVED"
+    | "DELIVERED"
+    | "COMPLETED"
+    | "CANCELLED";
+}) {
+  const base = "px-3 py-1 rounded-full font-bold uppercase tracking-wide";
 
-  if (status === "OPEN")
+  if (status === "REQUESTED")
     return (
       <span className={`${base} bg-yellow-100 text-yellow-800`}>Aberto</span>
     );
 
-  if (status === "IN_PROGRESS")
+  if (status === "UNDER_REVIEW")
     return (
-      <span className={`${base} bg-blue-100 text-blue-800`}>Em andamento</span>
+      <span className={`${base} bg-purple-100 text-purple-800`}>
+        Em análise
+      </span>
+    );
+
+  if (status === "APPROVED")
+    return (
+      <span className={`${base} bg-green-100 text-green-800`}>Aprovado</span>
     );
 
   if (status === "DELIVERED")
     return (
       <span className={`${base} bg-green-100 text-green-800`}>Entregue</span>
     );
+
+  if (status === "COMPLETED")
+    return (
+      <span className={`${base} bg-blue-100 text-blue-800`}>Concluído</span>
+    );
+
+  if (status === "CANCELLED")
+    return <span className={`${base} bg-red-100 text-red-800`}>Cancelado</span>;
 
   return <span className={`${base} bg-gray-200 text-gray-700`}>{status}</span>;
 }

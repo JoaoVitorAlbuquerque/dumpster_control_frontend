@@ -13,6 +13,7 @@ import {
 
 import { useRequestsAnalytics } from "../../../app/hooks/useRequestsAnalytics";
 import { StatusBarShape } from "./components/StatusBarShape";
+import { Spinner } from "../../components/Spinner";
 
 export function Dashboard() {
   const { requestAnalytics, isLoadingAnalytics, isErrorAnalytics } =
@@ -21,7 +22,14 @@ export function Dashboard() {
       // startDate/endDate opcionais
     });
 
-  if (isLoadingAnalytics) return <div>Carregando…</div>;
+  if (isLoadingAnalytics) {
+    return (
+      <div className="w-full mt-2 flex items-center justify-center">
+        <Spinner className="w-6 h-6" />
+      </div>
+    );
+  }
+
   if (isErrorAnalytics || !requestAnalytics)
     return <div>Erro ao carregar dados</div>;
 

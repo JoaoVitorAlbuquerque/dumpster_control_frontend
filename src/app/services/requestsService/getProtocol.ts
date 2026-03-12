@@ -3,9 +3,16 @@ import { httpClient } from "../httpClient";
 type RequestDetails = {
   id: string;
   protocol: string;
-  title: string;
+  name: string;
   description?: string;
-  status: string;
+  addressFormatted?: string;
+  status:
+    | "REQUESTED"
+    | "UNDER_REVIEW"
+    | "APPROVED"
+    | "DELIVERED"
+    | "COMPLETED"
+    | "CANCELLED";
   priority?: string;
   createdAt: string;
   deliveryDate?: string | null;
