@@ -201,7 +201,10 @@ export function ProtocolConsultPage() {
           <div className="mt-4 sm:mt-6 bg-gray-50 p-4 sm:p-6 rounded-xl border">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-2">
               <h2 className="font-bold text-base sm:text-lg">
-                Protocolo: {protocolData.protocol}
+                Protocolo:{" "}
+                <span className="font-semibold text-teal-600">
+                  {protocolData.protocol}
+                </span>
               </h2>
               <StatusBadge status={protocolData.status} />
             </div>

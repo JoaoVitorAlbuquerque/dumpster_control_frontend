@@ -38,7 +38,7 @@ export function AdminRequest() {
           />
 
           <Input
-            placeholder="E-mail *"
+            placeholder="E-mail (opcional)"
             error={errors.email?.message}
             type="email"
             {...register("email")}
@@ -57,7 +57,7 @@ export function AdminRequest() {
           />
 
           <Input
-            placeholder="Contato *"
+            placeholder="Contato * Ex: (44) 99999-9999"
             error={errors.contact?.message}
             {...register("contact")}
           />
@@ -156,7 +156,7 @@ export function AdminRequest() {
           />
 
           <FormTextarea
-            label="Observações"
+            label="Observações (opcional)"
             placeholder="Digite aqui..."
             error={errors.description?.message}
             {...register("description")}
