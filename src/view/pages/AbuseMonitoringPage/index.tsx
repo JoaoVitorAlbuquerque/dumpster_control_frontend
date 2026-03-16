@@ -1,3 +1,4 @@
+import { SheetIcon } from "../../components/icons/SheetIcon";
 import { Spinner } from "../../components/Spinner";
 import { AbuseHistoryModal } from "./modals/AbuseHistoryModal";
 import { useAbuseMonitoringPageController } from "./useAbuseMonitoringPageController";
@@ -64,9 +65,9 @@ export function AbuseMonitoringPage() {
 
           <button
             onClick={handleDownloadExcel}
-            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors"
+            className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors cursor-pointer"
           >
-            {/* <DownloadIcon /> */}
+            <SheetIcon />
             <span>Exportar XLSX</span>
           </button>
         </div>

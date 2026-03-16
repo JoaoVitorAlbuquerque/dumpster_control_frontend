@@ -4,6 +4,7 @@ interface NavigateLinkProps {
   icon?: React.ReactNode;
   linkTo: string;
   children: string;
+  onClick?: () => void;
 }
 
 export function NavigateLink({ icon, linkTo, children }: NavigateLinkProps) {

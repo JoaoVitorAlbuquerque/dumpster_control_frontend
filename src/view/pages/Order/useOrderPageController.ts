@@ -147,6 +147,42 @@ export function useOrderPageController() {
     }
   };
 
+  async function downloadExcelReport(filters: RequestFilters) {
+    try {
+      const params = new URLSearchParams();
+
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value) params.append(key, String(value));
+      });
+
+      const response = await httpClient.get(
+        `/requests/export/excel?${params}`,
+        {
+          responseType: "blob",
+        },
+      );
+
+      const blob = new Blob([response.data], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "relatorio-solicitacoes.xlsx";
+
+      document.body.appendChild(link);
+      link.click();
+
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      toast.success("Download do Excel concluído com êxito.");
+    } catch (error) {
+      toast.error("Erro ao baixar Excel");
+    }
+  }
+
   return {
     request,
     isLoading,
@@ -175,5 +211,6 @@ export function useOrderPageController() {
     handleOpenDeleteOrderModal,
     handleCloseDeleteOrderModal,
     downloadApprovedPdf,
+    downloadExcelReport,
   };
 }
