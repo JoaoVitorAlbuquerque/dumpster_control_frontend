@@ -23,6 +23,63 @@ export function useOrderPageController() {
   const [filters, setFilters] = useState<RequestFilters>(initialFilters);
   const [page, setPage] = useState(1);
   const perPage = 10;
+  const [selectedForPdf, setSelectedForPdf] = useState<Set<string>>(new Set()); //
+  const [isTodayFilterActive, setIsTodayFilterActive] = useState(false); //
+
+  const toggleSelectForPdf = useCallback((id: string) => {
+    setSelectedForPdf((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+  }, []);
+
+  const toggleSelectAllOnPage = useCallback((orders: Request[]) => {
+    setSelectedForPdf((prev) => {
+      const next = new Set(prev);
+      const allSelected = orders.every((o) => next.has(o.id));
+      allSelected
+        ? orders.forEach((o) => next.delete(o.id))
+        : orders.forEach((o) => next.add(o.id));
+      return next;
+    });
+  }, []);
+
+  const clearPdfSelection = useCallback(() => {
+    setSelectedForPdf(new Set());
+  }, []);
+
+  // Filtro "Pedidos do Dia" — aplica hoje como startDate e endDate + status APPROVED
+  const handleTodayFilter = useCallback(() => {
+    if (isTodayFilterActive) {
+      // Desativa — volta ao estado sem filtro
+      setIsTodayFilterActive(false);
+      setFilters({});
+      setSearchParams({});
+      clearPdfSelection();
+    } else {
+      // const today = new Date();
+      // today.setHours(0, 0, 0, 0);
+      // const todayEnd = new Date();
+      // todayEnd.setHours(23, 59, 59, 999);
+
+      // Sincroniza com searchParams igual ao handleApplyFilters
+      setSearchParams({
+        // startDate: today.toISOString(),
+        // endDate: todayEnd.toISOString(),
+        status: "APPROVED",
+      });
+
+      setIsTodayFilterActive(true);
+      setFilters({
+        // startDate: today,
+        // endDate: todayEnd,
+        status: "APPROVED",
+      });
+      setPage(1);
+      clearPdfSelection();
+    }
+  }, [isTodayFilterActive, clearPdfSelection, setSearchParams]);
 
   const handleOpenFiltersModal = useCallback(() => {
     setIsFiltersModalOpen(true);
@@ -122,30 +179,83 @@ export function useOrderPageController() {
     setFilters({});
   }
 
+  // Download PDF dos pedidos do dia (approved), respeitando seleção
   const downloadApprovedPdf = async () => {
     try {
+      const ids = selectedForPdf.size > 0 ? [...selectedForPdf] : undefined;
+
       const response = await httpClient.get("/requests/approved/pdf", {
         responseType: "blob",
+        params: ids ? { ids: ids.join(",") } : undefined,
       });
 
       const blob = new Blob([response.data], { type: "application/pdf" });
-
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute(
-        "download",
-        `Pedidos_do_dia_${Date.now().toString()}.pdf`,
-      );
+      link.setAttribute("download", `Pedidos_do_dia_${Date.now()}.pdf`);
       document.body.appendChild(link);
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
-      toast.success("Download do pdf concluído com êxito.");
-    } catch (error) {
-      toast.error("Erro ao baixar pdf");
+      toast.success("Download do PDF concluído.");
+    } catch {
+      toast.error("Erro ao baixar PDF");
     }
   };
+
+  // Download PDF das linhas selecionadas (qualquer filtro)
+  const downloadSelectedPdf = async () => {
+    if (selectedForPdf.size === 0) return;
+
+    try {
+      const response = await httpClient.get("/requests/export/pdf", {
+        responseType: "blob",
+        params: { ids: [...selectedForPdf].join(",") },
+      });
+
+      const blob = new Blob([response.data], { type: "application/pdf" });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `Selecionados_${Date.now()}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+      toast.success("Download do PDF concluído.");
+    } catch {
+      toast.error("Erro ao baixar PDF");
+    }
+  };
+
+  // const downloadApprovedPdf = async () => {
+  //   try {
+  //     const ids = selectedForPdf.size > 0 ? [...selectedForPdf] : undefined;
+
+  //     const response = await httpClient.get("/requests/approved/pdf", {
+  //       responseType: "blob",
+  //       params: ids ? { ids: ids.join(",") } : undefined,
+  //     });
+
+  //     const blob = new Blob([response.data], { type: "application/pdf" });
+
+  //     const url = window.URL.createObjectURL(blob);
+  //     const link = document.createElement("a");
+  //     link.href = url;
+  //     link.setAttribute(
+  //       "download",
+  //       `Pedidos_do_dia_${Date.now().toString()}.pdf`,
+  //     );
+  //     document.body.appendChild(link);
+  //     link.click();
+  //     link.remove();
+  //     window.URL.revokeObjectURL(url);
+  //     toast.success("Download do pdf concluído com êxito.");
+  //   } catch (error) {
+  //     toast.error("Erro ao baixar pdf");
+  //   }
+  // };
 
   async function downloadExcelReport(filters: RequestFilters) {
     try {
@@ -212,5 +322,12 @@ export function useOrderPageController() {
     handleCloseDeleteOrderModal,
     downloadApprovedPdf,
     downloadExcelReport,
+    selectedForPdf, //
+    toggleSelectForPdf, //
+    toggleSelectAllOnPage, //
+    clearPdfSelection, //
+    isTodayFilterActive, //
+    handleTodayFilter, //
+    downloadSelectedPdf, //
   };
 }

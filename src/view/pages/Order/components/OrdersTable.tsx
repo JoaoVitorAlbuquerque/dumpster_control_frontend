@@ -22,6 +22,9 @@ interface OrdersTableProps {
   onGoToLastPage(): void;
   onOpenEditOrderModal(order: Request): void;
   onOpenDeleteOrderModal(order: Request): void;
+  selectedForPdf: Set<string>; //
+  onToggleSelectForPdf(id: string): void; //
+  onToggleSelectAllOnPage(orders: Request[]): void; //
 }
 
 export function OrdersTable({
@@ -37,13 +40,32 @@ export function OrdersTable({
   onGoToLastPage,
   onOpenEditOrderModal,
   onOpenDeleteOrderModal,
+  selectedForPdf,
+  onToggleSelectForPdf,
+  onToggleSelectAllOnPage,
 }: OrdersTableProps) {
+  // const allOnPageSelected =
+  //   orders.length > 0 && orders.every((o) => selectedForPdf.has(o.id));
+
   return (
     <>
       <div className="bg-[#f1f3f5] rounded-2xl w-full h-full pb-8 px-4 overflow-auto max-h-[640px]">
         <TableComponents.Table>
           <thead className="sticky top-0 bg-gray-200 z-10">
             <tr className="bg-gray-600/20">
+              <TableComponents.Header>
+                <input
+                  type="checkbox"
+                  // checked={allOnPageSelected}
+                  checked={
+                    orders.length > 0 &&
+                    orders.every((o) => selectedForPdf.has(o.id))
+                  }
+                  onChange={() => onToggleSelectAllOnPage(orders)}
+                  className="w-4 h-4 cursor-pointer accent-teal-600"
+                  title="Selecionar todos desta página"
+                />
+              </TableComponents.Header>
               <TableComponents.Header>Data Pedido</TableComponents.Header>
               <TableComponents.Header>Data Entrega</TableComponents.Header>
               <TableComponents.Header>Data Finalizado</TableComponents.Header>
@@ -62,7 +84,17 @@ export function OrdersTable({
           {!isLoading &&
             orders.map((order) => (
               <tbody key={order.id}>
-                <TableComponents.Row>
+                <TableComponents.Row
+                  className={selectedForPdf.has(order.id) ? "!bg-teal-50" : ""}
+                >
+                  <TableComponents.Cell>
+                    <input
+                      type="checkbox"
+                      checked={selectedForPdf.has(order.id)}
+                      onChange={() => onToggleSelectForPdf(order.id)}
+                      className="w-4 h-4 cursor-pointer accent-teal-600"
+                    />
+                  </TableComponents.Cell>
                   <TableComponents.Cell>
                     {formatDate(new Date(order.orderDate))}
                   </TableComponents.Cell>
