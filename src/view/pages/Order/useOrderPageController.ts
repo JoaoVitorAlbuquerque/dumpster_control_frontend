@@ -25,6 +25,7 @@ export function useOrderPageController() {
   const perPage = 10;
   const [selectedForPdf, setSelectedForPdf] = useState<Set<string>>(new Set()); //
   const [isTodayFilterActive, setIsTodayFilterActive] = useState(false); //
+  const [isLoadingDownloadPdf, setIsLoadingDownloadPdf] = useState(false); //
 
   const toggleSelectForPdf = useCallback((id: string) => {
     setSelectedForPdf((prev) => {
@@ -184,6 +185,8 @@ export function useOrderPageController() {
     try {
       const ids = selectedForPdf.size > 0 ? [...selectedForPdf] : undefined;
 
+      setIsLoadingDownloadPdf(true);
+
       const response = await httpClient.get("/requests/approved/pdf", {
         responseType: "blob",
         params: ids ? { ids: ids.join(",") } : undefined,
@@ -198,6 +201,7 @@ export function useOrderPageController() {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
+      setIsLoadingDownloadPdf(false);
       toast.success("Download do PDF concluído.");
     } catch {
       toast.error("Erro ao baixar PDF");
@@ -209,6 +213,7 @@ export function useOrderPageController() {
     if (selectedForPdf.size === 0) return;
 
     try {
+      setIsLoadingDownloadPdf(true);
       const response = await httpClient.get("/requests/export/pdf", {
         responseType: "blob",
         params: { ids: [...selectedForPdf].join(",") },
@@ -223,6 +228,7 @@ export function useOrderPageController() {
       link.click();
       link.remove();
       window.URL.revokeObjectURL(url);
+      setIsLoadingDownloadPdf(false);
       toast.success("Download do PDF concluído.");
     } catch {
       toast.error("Erro ao baixar PDF");
@@ -329,5 +335,6 @@ export function useOrderPageController() {
     isTodayFilterActive, //
     handleTodayFilter, //
     downloadSelectedPdf, //
+    isLoadingDownloadPdf, //
   };
 }
